@@ -144,4 +144,28 @@ is_deeply $fixer->fix({}),
     {foo => ["1:", "2:", "3:", "4:"], test2 => [1, 2, 3, 4]},
     'specific testing, loop variable';
 
-done_testing 13;
+$fixes = <<EOF;
+do list(path:foo,var:loop)
+  copy_field(test,loop.baz)
+end
+EOF
+
+$fixer = Catmandu::Fix->new(fixes => [$fixes]);
+
+is_deeply $fixer->fix({foo => [{bar => 1}, {bar => 2}], test => 42}),
+    {foo => [{bar => 1, baz => 42}, {bar => 2, baz => 42}], test => 42},
+    'binding scope w/ var testing';
+
+$fixes = <<EOF;
+do list(path:foo)
+  copy_field(test,baz)
+end
+EOF
+
+$fixer = Catmandu::Fix->new(fixes => [$fixes]);
+
+is_deeply $fixer->fix({foo => [{bar => 1}, {bar => 2}], test => 42}),
+    {foo => [{bar => 1}, {bar => 2}], test => 42},
+    'binding scope w/o var testing';
+
+done_testing 15;
