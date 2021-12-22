@@ -170,4 +170,16 @@ is_deeply $fixer->fix({foo => [{bar => 1}, {bar => 2}], test => 42}),
     {foo => [{bar => 1, qux => 1}, {bar => 2, qux => 2}], test => 42},
     'binding scope w/o var testing';
 
-done_testing 15;
+$fixes = <<EOF;
+do list(path:foo.*.bar)
+  add_field(test,bar)
+end
+EOF
+
+$fixer = Catmandu::Fix->new(fixes => [$fixes]);
+
+is_deeply $fixer->fix({foo => [{bar => {baz => 1}}, {bar => {baz => 2}}]}),
+    {foo => [{bar => {baz => 1}}, {bar => {baz => 2}}]},
+    'array path testing';
+
+done_testing 16;
