@@ -22,8 +22,7 @@ is_deeply $pkg->new('names.*.name', 'y')
 
 is_deeply $pkg->new('animals.0', ' is cool')
     ->fix({animals => ['dog', 'cat', 'zebra']}),
-    {animals => ['dog is cool', 'cat', 'zebra']},
-    "append to array index";
+    {animals => ['dog is cool', 'cat', 'zebra']}, "append to array index";
 
 is_deeply $pkg->new('animals.*', ' is cool')
     ->fix({animals => ['dog', 'cat', 'zebra']}),
@@ -32,7 +31,6 @@ is_deeply $pkg->new('animals.*', ' is cool')
 
 is_deeply $pkg->new('animals', ' is cool')
     ->fix({animals => ['dog', 'cat', 'zebra']}),
-    {animals => ['dog', 'cat', 'zebra']},
-    "append only to string values";
+    {animals => ['dog', 'cat', 'zebra']}, "append only to string values";
 
 done_testing 6;

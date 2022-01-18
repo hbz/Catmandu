@@ -154,7 +154,10 @@ EOF
 $fixer = Catmandu::Fix->new(fixes => [$fixes]);
 
 is_deeply $fixer->fix({foo => [{bar => 1}, {bar => 2}], test => 42}),
-    {foo => [{bar => 1, baz => 42, qux => 1}, {bar => 2, baz => 42, qux => 2}], test => 42},
+    {
+    foo => [{bar => 1, baz => 42, qux => 1}, {bar => 2, baz => 42, qux => 2}],
+    test => 42
+    },
     'binding scope w/ var testing';
 
 $fixes = <<EOF;
@@ -179,7 +182,6 @@ EOF
 $fixer = Catmandu::Fix->new(fixes => [$fixes]);
 
 is_deeply $fixer->fix({foo => [{bar => {baz => 1}}, {bar => {baz => 2}}]}),
-    {foo => [{bar => {baz => 1}}, {bar => {baz => 2}}]},
-    'array path testing';
+    {foo => [{bar => {baz => 1}}, {bar => {baz => 2}}]}, 'array path testing';
 
 done_testing 16;
