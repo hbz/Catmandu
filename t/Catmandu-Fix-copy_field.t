@@ -15,6 +15,9 @@ BEGIN {
 is_deeply $pkg->new('old', 'new')->fix({old => 'old'}),
     {old => 'old', new => 'old'}, "copy field at root";
 
+is_deeply $pkg->new('old', 'new')->fix({old => 'old', new => 42}),
+    {old => 'old', new => 'old'}, "copy field to existing";
+
 is_deeply $pkg->new('old', 'deeply.nested.$append.new')->fix({old => 'old'}),
     {old => 'old', deeply => {nested => [{new => 'old'}]}},
     "copy field creates intermediate path";

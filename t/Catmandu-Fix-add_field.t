@@ -15,6 +15,9 @@ BEGIN {
 is_deeply $pkg->new('job', 'fixer')->fix({}), {job => "fixer"},
     "add field at root";
 
+is_deeply $pkg->new('job', 'fixer')->fix({job => 42}), {job => "fixer"},
+    "add field to existing";
+
 is_deeply $pkg->new('deeply.nested.$append.job', 'fixer')->fix({}),
     {deeply => {nested => [{job => "fixer"}]}},
     "add field creates intermediate path";
