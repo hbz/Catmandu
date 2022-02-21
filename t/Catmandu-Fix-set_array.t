@@ -28,4 +28,13 @@ is_deeply $pkg->new('deeply.nested.$append.job')
 is_deeply $pkg->new('job', 1, "foo", 2)->fix({}), {job => [1, "foo", 2]},
     "set array with initial contents";
 
-done_testing 6;
+is_deeply $pkg->new('job')->fix({job => "foo"}), {job => []},
+    "set array with existing string";
+
+is_deeply $pkg->new('job')->fix({job => {}}), {job => []},
+    "set array with existing hash";
+
+is_deeply $pkg->new('job')->fix({job => [1, "foo", 2]}), {job => []},
+    "set array with existing array";
+
+done_testing 9;
