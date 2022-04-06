@@ -19,4 +19,7 @@ is_deeply $pkg->new('names.*.name')
     ->fix({names => [{name => 'joe'}, {name => 'rick'}]}),
     {names => [{name => 'JOE'}, {name => 'RICK'}]}, "upcase wildcard values";
 
-done_testing 3;
+is_deeply $pkg->new('data')->fix({data => ['foo', 'bar']}),
+    {data => ['foo', 'bar']}, "array";
+
+done_testing 4;
