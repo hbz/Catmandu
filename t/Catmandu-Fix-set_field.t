@@ -27,6 +27,10 @@ is_deeply $pkg->new('deeply.nested.$append.job', 'fixer')
     ->fix({deeply => {nested => {}}}), {deeply => {nested => {}}},
     "only set field if the path matches";
 
+is_deeply $pkg->new('deeply.nested.$append', 'fixer')
+    ->fix({deeply => {nested => []}}), {deeply => {nested => ['fixer']}},
+    "set field if the path matches";
+
 is_deeply $pkg->new('test', '0123')->fix({test => 'ok'}), {test => '0123'},
     "set a number";
 

@@ -25,6 +25,10 @@ is_deeply $pkg->new('deeply.nested.$append.job')
     ->fix({deeply => {nested => {}}}), {deeply => {nested => {}}},
     "only set hash if the path matches";
 
+is_deeply $pkg->new('deeply.nested.$append')
+    ->fix({deeply => {nested => []}}), {deeply => {nested => [{}]}},
+    "set hash if the path matches";
+
 is_deeply $pkg->new('job', 'a', 'b', 'c', 'd')->fix({}),
     {job => {'a' => 'b', 'c' => 'd'}}, "set hash with initial contents";
 
@@ -37,4 +41,4 @@ is_deeply $pkg->new('job')->fix({job => []}), {job => {}},
 is_deeply $pkg->new('job')->fix({job => {a => 'b'}}), {job => {}},
     "set hash with existing hash";
 
-done_testing 9;
+done_testing 10;

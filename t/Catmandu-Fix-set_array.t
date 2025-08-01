@@ -25,6 +25,10 @@ is_deeply $pkg->new('deeply.nested.$append.job')
     ->fix({deeply => {nested => {}}}), {deeply => {nested => {}}},
     "only set array if the path matches";
 
+is_deeply $pkg->new('deeply.nested.$append')
+    ->fix({deeply => {nested => []}}), {deeply => {nested => [[]]}},
+    "set array if the path matches";
+
 is_deeply $pkg->new('job', 1, "foo", 2)->fix({}), {job => [1, "foo", 2]},
     "set array with initial contents";
 
@@ -37,4 +41,4 @@ is_deeply $pkg->new('job')->fix({job => {}}), {job => []},
 is_deeply $pkg->new('job')->fix({job => [1, "foo", 2]}), {job => []},
     "set array with existing array";
 
-done_testing 9;
+done_testing 10;
