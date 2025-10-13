@@ -37,4 +37,9 @@ is_deeply $pkg->new('nested', '.')
 is_deeply $pkg->new('nested', '.')->fix({nested => [1, 2, 3], foo => 'bar'}),
     [1, 2, 3], "replace root";
 
+is_deeply $pkg->new('array.*.dummy', 'hash.field1')
+    ->fix({hash => {field1 => 'value1', field2 => 'value2'}, array => [{}]}),
+    {hash => {field1 => 'value1', field2 => 'value2'}, array => [{}]},
+    "missing array value";
+
 done_testing;
